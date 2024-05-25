@@ -1,4 +1,4 @@
-package com.starpx.data
+package com.starpx.model
 
 data class ImageSetSummary(
     val caption: String,

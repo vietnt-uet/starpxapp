@@ -43,4 +43,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_detail_image">DetailImageActivity</string>
 </resources>

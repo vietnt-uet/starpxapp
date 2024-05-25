@@ -1,4 +1,4 @@
-package com.starpx.data
+package com.starpx.model
 
 data class ImageDetail(
     val full_height: Int,

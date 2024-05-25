@@ -1,5 +1,6 @@
 package com.starpx
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -19,6 +20,11 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Auth
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler
+import com.starpx.localstorage.PreferenceUtil
+import com.starpx.utils.KEY_ACCESS_TOKEN
+import com.starpx.utils.KEY_CUSTOMER_ID
+import com.starpx.views.DialogManager
+import com.starpx.views.ProgressDialog
 
 class LoginActivity : ComponentActivity() {
     private lateinit var userPool: CognitoUserPool
@@ -34,12 +40,24 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+    private fun navigateToGallery() {
+        val intent = Intent(this, GalleryActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun loginUser(username: String, password: String) {
+        DialogManager.showProgressDialog("Signing in...")
         val authenticationHandler = object : AuthenticationHandler {
             override fun onSuccess(userSession: CognitoUserSession?, newDevice: CognitoDevice?) {
                 runOnUiThread {
+                    PreferenceUtil.getInstance(this@LoginActivity).setValue(KEY_ACCESS_TOKEN,  userSession?.accessToken?.jwtToken ?: "")
+                    //TODO: Temporary use fixed customerId
+                    PreferenceUtil.getInstance(this@LoginActivity).setValue(KEY_CUSTOMER_ID,  "aabb1234")
+
                     Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
-                    // Handle successful login, e.g., navigate to another activity
+                    navigateToGallery()
+                    DialogManager.hideProgressDialog()
                 }
             }
 
@@ -51,16 +69,22 @@ class LoginActivity : ComponentActivity() {
 
             override fun getMFACode(multiFactorAuthenticationContinuation: MultiFactorAuthenticationContinuation?) {
                 // Handle MFA if needed
+                runOnUiThread {
+                    DialogManager.hideProgressDialog()
+                }
             }
 
             override fun onFailure(exception: Exception?) {
                 runOnUiThread {
                     Toast.makeText(this@LoginActivity, "Login failed: ${exception?.localizedMessage}", Toast.LENGTH_LONG).show()
+                    DialogManager.hideProgressDialog()
                 }
             }
 
             override fun authenticationChallenge(continuation: ChallengeContinuation?) {
-                // Handle other challenges
+                runOnUiThread {
+                    DialogManager.hideProgressDialog()
+                }
             }
         }
 
@@ -98,5 +122,6 @@ fun LoginScreen(onLogin: (String, String) -> Unit) {
         Button(onClick = { onLogin(username, password) }, modifier = Modifier.fillMaxWidth()) {
             Text("Login")
         }
+        ProgressDialog()
     }
 }

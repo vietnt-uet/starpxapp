@@ -87,6 +87,10 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.github.bumptech.glide:compiler:4.12.0")
 
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
+    implementation("net.engawapg.lib:zoomable:1.6.1")
+
     implementation(libs.androidx.material)
     implementation(libs.material)
     implementation(libs.androidx.appcompat)

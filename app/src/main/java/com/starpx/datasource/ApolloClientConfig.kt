@@ -1,4 +1,4 @@
-package com.starpx
+package com.starpx.datasource
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient

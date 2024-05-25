@@ -4,10 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,35 +11,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession
+import com.starpx.localstorage.PreferenceUtil
 import com.starpx.ui.theme.StarpxAppTheme
+import com.starpx.utils.KEY_ACCESS_TOKEN
 
 class MainActivity : ComponentActivity() {
     private lateinit var userPool: CognitoUserPool
+    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         userPool = (application as StarpxApp).userPool
 
         checkUserSession()
-
-        setContent {
-            StarpxAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
     }
 
     private fun checkUserSession() {
         val currentUser = userPool.currentUser
-        currentUser.getSession(object : com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler {
-
+        currentUser.getSessionInBackground(object : com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler {
             override fun onSuccess(userSession: CognitoUserSession?, newDevice: CognitoDevice?) {
+
+                //Update new access_token every time user open app again.
+                PreferenceUtil.getInstance(this@MainActivity).setValue(KEY_ACCESS_TOKEN,  userSession?.accessToken?.jwtToken ?: "")
+
                 if (userSession != null && userSession.isValid) {
                     navigateToGallery()
                 } else {
