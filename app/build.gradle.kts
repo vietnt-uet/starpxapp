@@ -1,6 +1,9 @@
+import com.apollographql.apollo3.gradle.internal.ApolloDownloadSchemaTask
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.apollographql.apollo3") version "3.4.0"
 }
 
 android {
@@ -50,10 +53,19 @@ android {
     }
 }
 
+apollo {
+    service("service") {
+        packageNamesFromFilePaths()
+        generateKotlinModels.set(true)
+    }
+}
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -64,8 +76,16 @@ dependencies {
     implementation(libs.aws.android.sdk.core)
     implementation(libs.aws.android.sdk.cognitoidentityprovider)
 
+    implementation(libs.apollo.runtime.v340)
+
     implementation("com.amplifyframework:core:0.9.0")
     implementation("com.amplifyframework:aws-api:0.9.0")
+
+    implementation("com.apollographql.apollo3:apollo-runtime:3.4.0")
+    implementation("io.coil-kt:coil-compose:2.0.0")
+
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:compiler:4.12.0")
 
     implementation(libs.androidx.material)
     implementation(libs.material)

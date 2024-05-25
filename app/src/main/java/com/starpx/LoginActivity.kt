@@ -70,8 +70,8 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen(onLogin: (String, String) -> Unit) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("hendrik@starpx.com") }
+    var password by remember { mutableStateOf("StarpxStarpx1!") }
 
     Column(
         modifier = Modifier
