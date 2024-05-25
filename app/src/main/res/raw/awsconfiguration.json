@@ -1,0 +1,10 @@
+{
+  "Version": "1.0",
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "eu-central-1_OW0g61kEk",
+      "AppClientId": "34fbjieukpdaq7m6q35ge10ei",
+      "Region": "eu-central-1"
+    }
+  }
+}
