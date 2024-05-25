@@ -1,5 +1,6 @@
 package com.starpx
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -76,7 +77,9 @@ class LoginActivity : ComponentActivity() {
 
             override fun onFailure(exception: Exception?) {
                 runOnUiThread {
-                    Toast.makeText(this@LoginActivity, "Login failed: ${exception?.localizedMessage}", Toast.LENGTH_LONG).show()
+                    AlertDialog.Builder(this@LoginActivity).setTitle(getString(R.string.string_oops)).setMessage("Login failed: ${exception?.localizedMessage}").setNegativeButton(R.string.string_close) { dialog, _ ->
+                        dialog.cancel()
+                    }
                     DialogManager.hideProgressDialog()
                 }
             }

@@ -29,7 +29,7 @@ class DetailImageViewModel : ViewModel() {
         val imageLoader = Coil.imageLoader(context)
         val request = ImageRequest.Builder(context)
             .data(imageUrl)
-            .allowHardware(false) // Important for manipulation and sharing
+            .allowHardware(false)
             .build()
 
         val result = imageLoader.execute(request)
@@ -41,7 +41,7 @@ class DetailImageViewModel : ViewModel() {
     }
 
     private fun shareImage(context: Context, bitmap: Bitmap) {
-        val uri = getmageToShare(context, bitmap)
+        val uri = getSharedImageUri(context, bitmap)
         val intent = Intent(Intent.ACTION_SEND)
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         intent.setType("image/png")
@@ -49,12 +49,12 @@ class DetailImageViewModel : ViewModel() {
     }
 
     // Retrieving the url to share
-    private fun getmageToShare(context: Context, bitmap: Bitmap): Uri? {
-        val imagefolder = File(context.cacheDir, "images")
+    private fun getSharedImageUri(context: Context, bitmap: Bitmap): Uri? {
+        val imageCacheFolder = File(context.cacheDir, "images")
         var uri: Uri? = null
         try {
-            imagefolder.mkdirs()
-            val file = File(imagefolder, "shared_image_${Date().time}.png")
+            imageCacheFolder.mkdirs()
+            val file = File(imageCacheFolder, "shared_image_${Date().time}.png")
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream)
             outputStream.flush()

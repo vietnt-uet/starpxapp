@@ -16,6 +16,21 @@
         android:theme="@style/Theme.StarpxApp"
         tools:targetApi="31">
         <activity
+            android:name=".ImageReceiverActivity"
+            android:exported="true"
+            android:theme="@style/Theme.StarpxApp" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".DetailImageActivity"
             android:exported="false"
             android:label="@string/title_activity_detail_image"
