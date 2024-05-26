@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.starpx.localstorage.PreferenceUtil
@@ -40,7 +41,6 @@ class GalleryActivity : ComponentActivity() {
 
     private fun logout(context: Context) {
         //Clear SharedPreference and logout AWS Cognito then open login screen again.
-
         PreferenceUtil.getInstance(context).removeAll()
 
         val userPool = (context.applicationContext as StarpxApp).userPool
@@ -82,13 +82,13 @@ fun ScaffoldGallery(onLogOut: (context: Context) -> Unit) {
 fun GalleryAppBar(onMenuClicked: () -> Unit) {
     TopAppBar(
         title = {
-            Text("Starpx")
+            Text(stringResource(id = R.string.app_name))
         },
         actions = {
             IconButton(onClick = onMenuClicked) {
                 Icon(
                     imageVector = Icons.TwoTone.ExitToApp,
-                    contentDescription = "Localized description",
+                    contentDescription = "Logout",
                     tint = Color.White
                 )
             }

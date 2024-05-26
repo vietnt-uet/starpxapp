@@ -1,7 +1,8 @@
 package com.starpx
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,30 +16,28 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.SubcomposeAsyncImage
+import com.starpx.utils.KEY_IMAGE_FULL_URL
 import com.starpx.viewmodel.DetailImageViewModel
 import com.starpx.views.ProgressDialog
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
 
 
-class DetailImageActivity : AppCompatActivity() {
+class DetailImageActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val imageUrl = intent.getStringExtra("image_url") ?: ""
+        val imageUrl = intent.getStringExtra(KEY_IMAGE_FULL_URL) ?: ""
 
-        setContentView(ComposeView(this).apply {
+        setContent {
             setContent {
-                setContent {
-                    DetailScreen(imageUrl)
-                }
+                DetailScreen(imageUrl)
             }
-        })
+        }
     }
 
     @Composable
