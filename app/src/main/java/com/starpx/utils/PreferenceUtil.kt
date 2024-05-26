@@ -1,8 +1,7 @@
-package com.starpx.localstorage
+package com.starpx.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.starpx.utils.LifecycleHelper
 
 class PreferenceUtil private constructor(context: Context) {
 

@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession
-import com.starpx.localstorage.PreferenceUtil
+import com.starpx.utils.PreferenceUtil
 import com.starpx.ui.theme.StarpxAppTheme
 import com.starpx.utils.KEY_ACCESS_TOKEN
 

@@ -20,7 +20,7 @@ fun ProgressDialog() {
     if (DialogManager.showDialog) {
         Dialog(onDismissRequest = { /* Dismissing is not allowed */ }) {
             Box(
-                modifier = Modifier.size(100.dp).background(Color.White, shape = RoundedCornerShape(8.dp)),
+                modifier = Modifier.size(200.dp).background(Color.White, shape = RoundedCornerShape(8.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {

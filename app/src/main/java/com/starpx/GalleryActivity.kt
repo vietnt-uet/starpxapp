@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
-import com.starpx.localstorage.PreferenceUtil
+import com.starpx.utils.PreferenceUtil
 import com.starpx.utils.KEY_ACCESS_TOKEN
 import com.starpx.viewmodel.GalleryViewModel
 import com.starpx.views.GalleryScreen

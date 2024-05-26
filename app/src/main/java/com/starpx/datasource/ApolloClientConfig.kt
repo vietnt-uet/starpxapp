@@ -18,8 +18,14 @@ class ApolloClientConfig {
                     val original: Request = chain.request()
                     val requestBuilder: Request.Builder = original.newBuilder()
                         .header("Content-type", "application/json")
-//                        .header("x-api-key", API_KEY)
-                        .header("Authorization", "Bearer $idToken")
+
+                    //Either use JWT token or api key, not both.
+                    if (idToken.isNotEmpty()) {
+                        requestBuilder.header("Authorization", "Bearer $idToken")
+                    } else {
+                        requestBuilder.header("x-api-key", API_KEY)
+                    }
+
                     val request: Request = requestBuilder.build()
                     chain.proceed(request)
                 })

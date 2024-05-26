@@ -33,7 +33,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Auth
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler
-import com.starpx.localstorage.PreferenceUtil
+import com.starpx.utils.PreferenceUtil
 import com.starpx.utils.KEY_ACCESS_TOKEN
 import com.starpx.utils.KEY_CUSTOMER_ID
 import com.starpx.views.DialogManager

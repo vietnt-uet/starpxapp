@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Optional
 import com.starpx.datasource.ApolloClientConfig
-import com.starpx.localstorage.PreferenceUtil
+import com.starpx.utils.PreferenceUtil
 import com.starpx.utils.KEY_CUSTOMER_ID
 import com.starpx.utils.LifecycleHelper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +32,7 @@ class GalleryViewModel : ViewModel() {
         fetchImageSets(null)
     }
 
-    fun fetchImageSets(_nextToken: String?) {
+    fun fetchImageSets(nextToken: String?) {
         val customerId = PreferenceUtil.getInstance(LifecycleHelper.getInstance().appContext).getString(
             KEY_CUSTOMER_ID) ?: ""
         viewModelScope.launch {
@@ -42,12 +42,12 @@ class GalleryViewModel : ViewModel() {
                     GetImageSetSummariesQuery(
                         customerId = customerId,
                         limit = Optional.Present(GALLERY_PAGE_SIZE),
-                        nextToken = Optional.Present(_nextToken)
+                        nextToken = Optional.Present(nextToken)
                     )
                 )?.execute()
 
                 response?.data?.getImageSetSummaries?.let {
-                    nextToken = it.nextToken
+                    this@GalleryViewModel.nextToken = it.nextToken
                     _imageSets.update { currentImageSets ->
                         currentImageSets + it.image_sets?.filterNotNull().orEmpty()
                     }
