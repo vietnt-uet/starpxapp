@@ -3,6 +3,7 @@ package com.starpx
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,7 +47,9 @@ class DetailImageActivity : ComponentActivity() {
         val context = LocalContext.current
         val zoomState = rememberZoomState()
 
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(colorResource(id = R.color.bg_color))) {
             IconButton(
                 onClick = {
                     finish()
@@ -54,7 +58,8 @@ class DetailImageActivity : ComponentActivity() {
             ) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Localized description"
+                    contentDescription = "Localized description",
+                    tint = colorResource(id = R.color.white)
                 )
             }
 

@@ -19,11 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
-import com.starpx.utils.PreferenceUtil
 import com.starpx.utils.KEY_ACCESS_TOKEN
+import com.starpx.utils.PreferenceUtil
 import com.starpx.viewmodel.GalleryViewModel
 import com.starpx.views.GalleryScreen
 
@@ -67,6 +68,7 @@ fun ScaffoldGallery(onLogOut: (context: Context) -> Unit) {
         topBar = {
             GalleryAppBar { onLogOut(context) }
         },
+        containerColor = colorResource(id = R.color.bg_color)
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -82,8 +84,12 @@ fun ScaffoldGallery(onLogOut: (context: Context) -> Unit) {
 fun GalleryAppBar(onMenuClicked: () -> Unit) {
     TopAppBar(
         title = {
-            Text(stringResource(id = R.string.app_name))
+            Text(
+                text = stringResource(id = R.string.app_name),
+                color = colorResource(id = R.color.white)
+            )
         },
+        backgroundColor = colorResource(id = R.color.bg_color),
         actions = {
             IconButton(onClick = onMenuClicked) {
                 Icon(
