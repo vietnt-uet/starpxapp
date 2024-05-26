@@ -2,6 +2,7 @@ package com.starpx.datasource
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
+import com.starpx.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -9,8 +10,8 @@ import okhttp3.Request
 class ApolloClientConfig {
 
     companion object {
-        private const val BASE_URL = "https://api-dev.starpx.com/graphql"
-        private const val API_KEY = "da2-65pvpzhg45clljvctl22t37nvq"
+        private const val BASE_URL = BuildConfig.API_ENDPOINT
+        private const val API_KEY = BuildConfig.API_KEY
 
         fun getApolloClient(idToken: String): ApolloClient {
             val okHttpClient = OkHttpClient.Builder()

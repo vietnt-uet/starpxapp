@@ -3,7 +3,7 @@ package com.starpx.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferenceUtil private constructor(context: Context) {
+class PreferenceUtil private constructor() {
 
     lateinit var sharedPreferences: SharedPreferences
 
@@ -16,7 +16,7 @@ class PreferenceUtil private constructor(context: Context) {
         @JvmStatic
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
-                instance ?: PreferenceUtil(context).also {
+                instance ?: PreferenceUtil().also {
                     instance = it
                     instance?.sharedPreferences =
                         LifecycleHelper.getInstance().appContext.getSharedPreferences(
