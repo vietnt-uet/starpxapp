@@ -1,4 +1,7 @@
 import com.apollographql.apollo3.gradle.internal.ApolloDownloadSchemaTask
+import java.util.Properties
+
+apply(from = "keystore.gradle")
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -6,9 +9,24 @@ plugins {
     id("com.apollographql.apollo3") version "3.4.0"
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use {
+        localProperties.load(it)
+    }
+}
+
+val api_endpoint = localProperties.getProperty("api_endpoint") ?: "default_api_endpoint"
+val api_key = localProperties.getProperty("api_key") ?: "default_api_key"
+
 android {
     namespace = "com.starpx"
     compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.starpx"
@@ -21,10 +39,23 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "API_ENDPOINT", "\"${api_endpoint}\"")
+        buildConfigField("String", "API_KEY", "\"${api_key}\"")
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = findProperty("keyAlias") as String
+            keyPassword = findProperty("keyPassword") as String
+            storeFile = file(findProperty("storeFile") as String)
+            storePassword = findProperty("storePassword") as String
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -82,7 +113,7 @@ dependencies {
     implementation("com.amplifyframework:aws-api:0.9.0")
 
     implementation("com.apollographql.apollo3:apollo-runtime:3.4.0")
-    implementation("io.coil-kt:coil-compose:2.0.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.github.bumptech.glide:compiler:4.12.0")
