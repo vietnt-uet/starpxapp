@@ -1,6 +1,10 @@
-# Android Example Application
+# Starpx Assignment
 
-This is an example Android Application README to show briefly the sections your app README should contain.
+This is assignment project using:
+- AWS Cognito
+- Apollo GraphQL
+- Jetpack Compose
+- Android Provider
 
 ## Installation
 Clone this repository and import into **Android Studio**
