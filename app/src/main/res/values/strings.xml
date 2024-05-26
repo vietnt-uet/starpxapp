@@ -2,8 +2,14 @@
     <string name="app_name">Starpx App</string>
     <string name="share_to_app">Share to Starpx</string>
 
+    <!-- Common -->
     <string name="string_oops">Oops!</string>
     <string name="string_close">Close</string>
+
+    <!-- Login Screen -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_activity_detail_image">DetailImageActivity</string>
