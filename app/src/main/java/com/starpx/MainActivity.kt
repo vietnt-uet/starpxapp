@@ -37,10 +37,7 @@ class MainActivity : ComponentActivity() {
 
             override fun getAuthenticationDetails(authenticationContinuation: com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation?, userId: String?) {
                 Toast.makeText(this@MainActivity, "getAuthenticationDetails", Toast.LENGTH_SHORT).show()
-                if (userId === null) {
-                    navigateToLogin()
-                }
-
+                navigateToLogin()
             }
 
             override fun getMFACode(multiFactorAuthenticationContinuation: com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation?) {
